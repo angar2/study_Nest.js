@@ -19,7 +19,7 @@ export class MoviesService {
 
     remove(id: string): Boolean {
         this.getOne(id)
-        this.movies.filter(movie => movie.id !== +id);
+        this.movies = this.movies.filter(movie => movie.id !== +id);
         return true;
     }
 
@@ -28,5 +28,11 @@ export class MoviesService {
             id: this.movies.length + 1,
             ...movieData
         });
+    }
+
+    patch(id: string, movieData) {
+        const movie = this.getOne(id);
+        this.remove(id);
+        this.movies.push({...movie, ...movieData});
     }
 }
